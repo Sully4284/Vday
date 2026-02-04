@@ -199,6 +199,31 @@
             100% { transform: translateX(-100%); }
         }
 
+        .popup-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 0 30px #ff00ff, 0 0 60px #ff69b4;
+            border: 4px solid #fff;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-width: 90%;
+            pointer-events: none;
+        }
+
+        .popup-message.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
         /* Mobile styles */
         @media (max-width: 600px) {
             body {
@@ -254,16 +279,34 @@
         </span>
     </div>
 
+    <div class="popup-message" id="popupMessage"></div>
+
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const marqueeText = document.getElementById('marqueeText');
+        const popupMessage = document.getElementById('popupMessage');
         const container = document.querySelector('.container');
 
         let yesScale = 1;
         let noClickCount = 0;
 
         const funnyMessages = [
+            "Are you sure? 🤔",
+            "Wait, really?! 😲",
+            "C'mon, it'll be fun! 🎉",
+            "Press Yes to fall in love 💕",
+            "Or don't... 😢",
+            "The Yes button is RIGHT THERE ➡️",
+            "Why do you keep clicking No?! 😭",
+            "Are you scared of happiness? 🥺",
+            "The No button can't run forever! 🏃",
+            "Just click Yes already! 💖",
+            "Roses are red, click Yes please 🌹",
+            "This is getting ridiculous! 😅"
+        ];
+
+        const marqueeMessages = [
             "~*~*~ Are you sure? ~*~*~ Think about it... ~*~*~ We'd be so cute together ~*~*~",
             "~*~*~ Wait, really?! ~*~*~ Look at that photo again ~*~*~ C'mon! ~*~*~",
             "~*~*~ It'll be fun, I promise! ~*~*~ Just click Yes ~*~*~ You know you want to ~*~*~",
@@ -286,8 +329,19 @@
         }
 
         function updateMarquee() {
+            const messageIndex = Math.min(noClickCount, marqueeMessages.length - 1);
+            marqueeText.textContent = marqueeMessages[messageIndex];
+        }
+
+        function showPopupMessage() {
             const messageIndex = Math.min(noClickCount, funnyMessages.length - 1);
-            marqueeText.textContent = funnyMessages[messageIndex];
+            popupMessage.textContent = funnyMessages[messageIndex];
+            popupMessage.classList.add('show');
+
+            // Hide after 1.5 seconds
+            setTimeout(() => {
+                popupMessage.classList.remove('show');
+            }, 1500);
         }
 
         function moveNoButton(e) {
@@ -322,9 +376,10 @@
             // Grow the Yes button
             growYesButton();
 
-            // Update message
+            // Update message and show popup
             noClickCount++;
             updateMarquee();
+            showPopupMessage();
 
             // Create sparkle effect
             createSparkle(eventX, eventY);
