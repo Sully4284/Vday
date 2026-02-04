@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>~*~Will You Be My Valentine?~*~</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #ffff00);
+            background-size: 400% 400%;
+            animation: gradient 3s ease infinite;
+            font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 6vw, 4rem);
+            color: #ff0000;
+            text-shadow:
+                3px 3px 0 #ffff00,
+                -3px -3px 0 #00ff00,
+                3px -3px 0 #0000ff,
+                -3px 3px 0 #ff00ff;
+            animation: blink 0.5s infinite, rainbow 2s linear infinite;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.7; }
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            16% { color: #ff8800; }
+            33% { color: #ffff00; }
+            50% { color: #00ff00; }
+            66% { color: #0088ff; }
+            83% { color: #ff00ff; }
+            100% { color: #ff0000; }
+        }
+
+        .couple-photo {
+            width: 100%;
+            max-width: 400px;
+            border: 8px ridge #ff69b4;
+            border-radius: 10px;
+            box-shadow:
+                0 0 20px #ff00ff,
+                0 0 40px #ff69b4;
+            margin-bottom: 30px;
+            animation: photo-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes photo-glow {
+            from { box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff69b4; }
+            to { box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff; }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            min-height: 150px;
+            position: relative;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+            cursor: pointer;
+            border: 5px outset;
+            text-decoration: none;
+            display: inline-block;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .yes-btn {
+            background: linear-gradient(to bottom, #00ff00, #008800);
+            border-color: #00ff00;
+            color: white;
+            text-shadow: 2px 2px #000;
+            animation: pulse 0.5s infinite alternate;
+            transition: transform 0.3s ease, font-size 0.3s ease, padding 0.3s ease;
+            z-index: 10;
+        }
+
+        .yes-btn:hover {
+            background: linear-gradient(to bottom, #88ff88, #00ff00);
+        }
+
+        @keyframes pulse {
+            from { transform: scale(var(--scale, 1)); }
+            to { transform: scale(calc(var(--scale, 1) * 1.05)); }
+        }
+
+        .no-btn {
+            background: linear-gradient(to bottom, #ff0000, #880000);
+            border-color: #ff0000;
+            color: white;
+            text-shadow: 2px 2px #000;
+            position: relative;
+            transition: none;
+            z-index: 5;
+        }
+
+        .no-btn.running {
+            position: fixed;
+        }
+
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            animation: sparkle-fade 1s forwards;
+            z-index: 1000;
+        }
+
+        @keyframes sparkle-fade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .marquee {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 8s linear infinite;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: #ff00ff;
+            text-shadow: 2px 2px #fff;
+            font-weight: bold;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+                padding-bottom: 80px;
+            }
+
+            .container {
+                padding: 5px;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            .couple-photo {
+                max-width: 90%;
+                margin-bottom: 20px;
+            }
+
+            .buttons {
+                min-height: 120px;
+                gap: 20px;
+            }
+
+            .btn {
+                padding: 12px 30px;
+            }
+
+            .marquee-content {
+                animation-duration: 6s;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+        <h1>~*~ Will You Be My Valentine? ~*~</h1>
+
+        <img src="IMG_6971.JPG" alt="Us" class="couple-photo">
+
+        <div class="buttons">
+            <a href="https://youtube.com/shorts/Bk7M_uNDZGE?si=msu_qVP22iC9P4A8" class="btn yes-btn" id="yesBtn">Yes!!!</a>
+            <button class="btn no-btn" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="marquee">
+        <span class="marquee-content" id="marqueeText">
+            ~*~*~ Made with LOVE ~*~*~ Best viewed in Netscape Navigator ~*~*~ 800x600 resolution ~*~*~ You are my sunshine ~*~*~
+        </span>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const marqueeText = document.getElementById('marqueeText');
+        const container = document.querySelector('.container');
+
+        let yesScale = 1;
+        let noClickCount = 0;
+
+        const funnyMessages = [
+            "~*~*~ Are you sure? ~*~*~ Think about it... ~*~*~ We'd be so cute together ~*~*~",
+            "~*~*~ Wait, really?! ~*~*~ Look at that photo again ~*~*~ C'mon! ~*~*~",
+            "~*~*~ It'll be fun, I promise! ~*~*~ Just click Yes ~*~*~ You know you want to ~*~*~",
+            "~*~*~ Press Yes to fall in love ~*~*~ Or keep running from your feelings ~*~*~",
+            "~*~*~ Or don't... ~*~*~ But you're missing out ~*~*~ Just sayin' ~*~*~",
+            "~*~*~ The Yes button is RIGHT THERE ~*~*~ It's getting bigger for a reason ~*~*~",
+            "~*~*~ Why do you keep clicking No?! ~*~*~ Are you scared of happiness? ~*~*~",
+            "~*~*~ Fine, be that way ~*~*~ But Yes is still an option ~*~*~ Hint hint ~*~*~",
+            "~*~*~ The No button can't run forever ~*~*~ Neither can you ~*~*~",
+            "~*~*~ Your finger is getting closer to Yes ~*~*~ I can feel it ~*~*~",
+            "~*~*~ Roses are red, violets are blue ~*~*~ Just click Yes already ~*~*~ I'm begging you ~*~*~",
+            "~*~*~ This is getting ridiculous ~*~*~ The Yes button is HUGE now ~*~*~"
+        ];
+
+
+        function growYesButton() {
+            yesScale += 0.25;
+            yesBtn.style.setProperty('--scale', yesScale);
+            yesBtn.style.transform = `scale(${yesScale})`;
+        }
+
+        function updateMarquee() {
+            const messageIndex = Math.min(noClickCount, funnyMessages.length - 1);
+            marqueeText.textContent = funnyMessages[messageIndex];
+        }
+
+        function moveNoButton(e) {
+            // Switch to fixed positioning when it starts running
+            noBtn.classList.add('running');
+
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            const maxX = window.innerWidth - btnWidth - 20;
+            const maxY = window.innerHeight - btnHeight - 100; // Account for marquee
+
+            let newX, newY;
+            let attempts = 0;
+
+            const eventX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+            const eventY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+
+            // Make sure it moves far enough away
+            do {
+                newX = Math.random() * maxX;
+                newY = Math.random() * (maxY - 150) + 100; // Keep away from top and bottom
+                attempts++;
+            } while (
+                attempts < 50 &&
+                Math.abs(newX - eventX) < 150 &&
+                Math.abs(newY - eventY) < 150
+            );
+
+            noBtn.style.left = Math.max(10, newX) + 'px';
+            noBtn.style.top = Math.max(100, newY) + 'px';
+
+            // Grow the Yes button
+            growYesButton();
+
+            // Update message
+            noClickCount++;
+            updateMarquee();
+
+            // Create sparkle effect
+            createSparkle(eventX, eventY);
+        }
+
+        // Desktop: mouseover
+        noBtn.addEventListener('mouseover', moveNoButton);
+
+        // Mobile: touchstart (before click registers)
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton(e);
+        }, { passive: false });
+
+        // Also handle click for safety
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveNoButton(e);
+        });
+
+        // Sparkle effect
+        function createSparkle(x, y) {
+            if (!x || !y) return;
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '&#10024;';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.fontSize = Math.random() * 20 + 20 + 'px';
+            sparkle.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        // Falling hearts
+        const heartsContainer = document.getElementById('hearts');
+        const heartEmojis = ['❤️', '💕', '💖', '💗', '💘', '💝', '💞', '💟', '🌹'];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        setInterval(createHeart, 300);
+
+        // Cursor trail (desktop only)
+        if (window.matchMedia('(hover: hover)').matches) {
+            document.addEventListener('mousemove', function(e) {
+                if (Math.random() > 0.7) {
+                    createSparkle(e.clientX, e.clientY);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
