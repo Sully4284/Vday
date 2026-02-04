@@ -43,7 +43,7 @@
         }
 
         h1 {
-            font-size: clamp(1.8rem, 6vw, 4rem);
+            font-size: clamp(1.2rem, 4.5vw, 4rem);
             color: #ff0000;
             text-shadow:
                 3px 3px 0 #ffff00,
@@ -53,6 +53,7 @@
             animation: blink 0.5s infinite, rainbow 2s linear infinite;
             margin-bottom: 30px;
             padding: 0 10px;
+            white-space: nowrap;
         }
 
         @keyframes blink {
@@ -176,22 +177,6 @@
             100% { transform: translateY(100vh) rotate(360deg); }
         }
 
-        .bottom-message {
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            z-index: 100;
-            padding: 0 20px;
-        }
-
-        .bottom-message-content {
-            font-size: clamp(1rem, 3.5vw, 1.5rem);
-            color: #ff00ff;
-            text-shadow: 2px 2px #fff;
-            font-weight: bold;
-        }
-
         .popup-message {
             position: fixed;
             top: 50%;
@@ -263,18 +248,11 @@
         </div>
     </div>
 
-    <div class="bottom-message">
-        <span class="bottom-message-content" id="bottomText">
-            ~*~ Made with LOVE ~*~
-        </span>
-    </div>
-
     <div class="popup-message" id="popupMessage"></div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
-        const bottomText = document.getElementById('bottomText');
         const popupMessage = document.getElementById('popupMessage');
         const container = document.querySelector('.container');
 
@@ -282,6 +260,17 @@
         let noClickCount = 0;
 
         const funnyMessages = [
+            // Your custom ones first
+            "Cmon Patricia 😏",
+            "I mean Priscilla 😅",
+            "Spontaneous for HTX, but not V-Day? 🤨",
+            "I'll get you a sweet treat 🍬",
+            "10 Booms if you say yes 💥",
+            "How about a coach bag? 👜",
+            "I guess not... 😔",
+            "Sad 😢",
+            "Pls press yes already 🥺",
+            // 50+ more messages
             "Are you sure? 🤔",
             "Wait, really?! 😲",
             "C'mon, it'll be fun! 🎉",
@@ -293,22 +282,69 @@
             "The No button can't run forever! 🏃",
             "Just click Yes already! 💖",
             "Roses are red, click Yes please 🌹",
-            "This is getting ridiculous! 😅"
-        ];
-
-        const bottomMessages = [
-            "~*~ Are you sure? ~*~",
-            "~*~ Wait, really?! ~*~",
-            "~*~ C'mon, it'll be fun! ~*~",
-            "~*~ Press Yes to fall in love ~*~",
-            "~*~ Or don't... ~*~",
-            "~*~ The Yes button is RIGHT THERE ~*~",
-            "~*~ Why do you keep clicking No?! ~*~",
-            "~*~ Are you scared of happiness? ~*~",
-            "~*~ The No button can't run forever! ~*~",
-            "~*~ Just click Yes already! ~*~",
-            "~*~ Roses are red, click Yes please ~*~",
-            "~*~ This is getting ridiculous! ~*~"
+            "This is getting ridiculous! 😅",
+            "I'm not giving up! 💪",
+            "You know you want to... 😏",
+            "The Yes button misses you 💔",
+            "Think of all the memories! 📸",
+            "We'd be so cute together 🥰",
+            "Your finger is so close to Yes! 👆",
+            "I can do this all day ⏰",
+            "Pretty please? 🙏",
+            "With a cherry on top? 🍒",
+            "I'll make it worth your while 😉",
+            "Don't break my heart 💔",
+            "You're running out of excuses! 🏃‍♀️",
+            "The universe wants you to say Yes ✨",
+            "Even the hearts are rooting for us! 💕",
+            "I promise to be the best valentine 🏆",
+            "No is not in my vocabulary 📖",
+            "Actually it is, but I ignore it 🙈",
+            "You're making this harder than it needs to be 😤",
+            "Just one little click... 👆",
+            "The Yes button is getting lonely 😢",
+            "I believe in us! 💑",
+            "We're meant to be! 💫",
+            "Stop playing hard to get 😜",
+            "I know you're smiling right now 😊",
+            "Your heart says Yes! ❤️",
+            "Listen to your heart 💓",
+            "Be my valentine already! 💝",
+            "I won't stop asking 🔄",
+            "Persistence is my middle name 💪",
+            "Actually it's not, but still 😂",
+            "You + Me = Perfect 💕",
+            "Math doesn't lie! 🔢",
+            "The stars aligned for us ⭐",
+            "This is fate! 🌟",
+            "Cupid sent me 💘",
+            "Don't disappoint Cupid 🏹",
+            "He worked really hard on this 😅",
+            "One Yes, that's all I ask 🙏",
+            "I'll even do the dishes 🍽️",
+            "And take out the trash 🗑️",
+            "For like... a week 📅",
+            "Okay maybe a day 😬",
+            "But still! 💁",
+            "You complete me 🧩",
+            "Like puzzle pieces! 🧩",
+            "We fit together perfectly 💑",
+            "Say Yes and find out 😏",
+            "Adventure awaits! 🎢",
+            "Let's make memories 📷",
+            "Starting with you saying Yes ✅",
+            "The button is right there ⬇️",
+            "So close yet so far 😩",
+            "Bridge the gap! 🌉",
+            "Click. The. Button. 👆",
+            "Pretty pretty please? 🥺",
+            "I'll never ask for anything again 🤞",
+            "Okay that's a lie 😂",
+            "But I really want this! 💖",
+            "More than anything! 🌟",
+            "You're my favorite person 🥇",
+            "Let me prove it! 💪",
+            "Just say Yes! ✨"
         ];
 
 
@@ -318,20 +354,15 @@
             yesBtn.style.transform = `scale(${yesScale})`;
         }
 
-        function updateBottomText() {
-            const messageIndex = Math.min(noClickCount, bottomMessages.length - 1);
-            bottomText.textContent = bottomMessages[messageIndex];
-        }
-
         function showPopupMessage() {
             const messageIndex = Math.min(noClickCount, funnyMessages.length - 1);
             popupMessage.textContent = funnyMessages[messageIndex];
             popupMessage.classList.add('show');
 
-            // Hide after 1.5 seconds
+            // Hide after 2.5 seconds (longer so they can read it)
             setTimeout(() => {
                 popupMessage.classList.remove('show');
-            }, 1500);
+            }, 2500);
         }
 
         function moveNoButton(e) {
@@ -368,7 +399,6 @@
 
             // Update message and show popup
             noClickCount++;
-            updateBottomText();
             showPopupMessage();
 
             // Create sparkle effect
