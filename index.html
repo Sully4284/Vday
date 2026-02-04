@@ -176,27 +176,20 @@
             100% { transform: translateY(100vh) rotate(360deg); }
         }
 
-        .marquee {
+        .bottom-message {
             position: fixed;
             bottom: 20px;
             width: 100%;
-            overflow: hidden;
+            text-align: center;
             z-index: 100;
+            padding: 0 20px;
         }
 
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 8s linear infinite;
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
+        .bottom-message-content {
+            font-size: clamp(1rem, 3.5vw, 1.5rem);
             color: #ff00ff;
             text-shadow: 2px 2px #fff;
             font-weight: bold;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100vw); }
-            100% { transform: translateX(-100%); }
         }
 
         .popup-message {
@@ -253,9 +246,6 @@
                 padding: 12px 30px;
             }
 
-            .marquee-content {
-                animation-duration: 6s;
-            }
         }
     </style>
 </head>
@@ -273,9 +263,9 @@
         </div>
     </div>
 
-    <div class="marquee">
-        <span class="marquee-content" id="marqueeText">
-            ~*~*~ Made with LOVE ~*~*~ Best viewed in Netscape Navigator ~*~*~ 800x600 resolution ~*~*~ You are my sunshine ~*~*~
+    <div class="bottom-message">
+        <span class="bottom-message-content" id="bottomText">
+            ~*~ Made with LOVE ~*~
         </span>
     </div>
 
@@ -284,7 +274,7 @@
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
-        const marqueeText = document.getElementById('marqueeText');
+        const bottomText = document.getElementById('bottomText');
         const popupMessage = document.getElementById('popupMessage');
         const container = document.querySelector('.container');
 
@@ -306,19 +296,19 @@
             "This is getting ridiculous! 😅"
         ];
 
-        const marqueeMessages = [
-            "~*~*~ Are you sure? ~*~*~ Think about it... ~*~*~ We'd be so cute together ~*~*~",
-            "~*~*~ Wait, really?! ~*~*~ Look at that photo again ~*~*~ C'mon! ~*~*~",
-            "~*~*~ It'll be fun, I promise! ~*~*~ Just click Yes ~*~*~ You know you want to ~*~*~",
-            "~*~*~ Press Yes to fall in love ~*~*~ Or keep running from your feelings ~*~*~",
-            "~*~*~ Or don't... ~*~*~ But you're missing out ~*~*~ Just sayin' ~*~*~",
-            "~*~*~ The Yes button is RIGHT THERE ~*~*~ It's getting bigger for a reason ~*~*~",
-            "~*~*~ Why do you keep clicking No?! ~*~*~ Are you scared of happiness? ~*~*~",
-            "~*~*~ Fine, be that way ~*~*~ But Yes is still an option ~*~*~ Hint hint ~*~*~",
-            "~*~*~ The No button can't run forever ~*~*~ Neither can you ~*~*~",
-            "~*~*~ Your finger is getting closer to Yes ~*~*~ I can feel it ~*~*~",
-            "~*~*~ Roses are red, violets are blue ~*~*~ Just click Yes already ~*~*~ I'm begging you ~*~*~",
-            "~*~*~ This is getting ridiculous ~*~*~ The Yes button is HUGE now ~*~*~"
+        const bottomMessages = [
+            "~*~ Are you sure? ~*~",
+            "~*~ Wait, really?! ~*~",
+            "~*~ C'mon, it'll be fun! ~*~",
+            "~*~ Press Yes to fall in love ~*~",
+            "~*~ Or don't... ~*~",
+            "~*~ The Yes button is RIGHT THERE ~*~",
+            "~*~ Why do you keep clicking No?! ~*~",
+            "~*~ Are you scared of happiness? ~*~",
+            "~*~ The No button can't run forever! ~*~",
+            "~*~ Just click Yes already! ~*~",
+            "~*~ Roses are red, click Yes please ~*~",
+            "~*~ This is getting ridiculous! ~*~"
         ];
 
 
@@ -328,9 +318,9 @@
             yesBtn.style.transform = `scale(${yesScale})`;
         }
 
-        function updateMarquee() {
-            const messageIndex = Math.min(noClickCount, marqueeMessages.length - 1);
-            marqueeText.textContent = marqueeMessages[messageIndex];
+        function updateBottomText() {
+            const messageIndex = Math.min(noClickCount, bottomMessages.length - 1);
+            bottomText.textContent = bottomMessages[messageIndex];
         }
 
         function showPopupMessage() {
@@ -378,7 +368,7 @@
 
             // Update message and show popup
             noClickCount++;
-            updateMarquee();
+            updateBottomText();
             showPopupMessage();
 
             // Create sparkle effect
