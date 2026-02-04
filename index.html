@@ -239,9 +239,9 @@
 <body>
     <div class="hearts" id="hearts"></div>
 
-    <div class="container">
-        <h1>~*~ Will You Be My Valentine? ~*~</h1>
+    <h1>~*~ Will You Be My Valentine? ~*~</h1>
 
+    <div class="container">
         <img src="couple.png" alt="Us" class="couple-photo">
 
         <div class="buttons">
@@ -399,9 +399,9 @@
             // Grow the Yes button
             growYesButton();
 
-            // Update message and show popup
-            noClickCount++;
+            // Show popup message first, then increment
             showPopupMessage();
+            noClickCount++;
 
             // Create sparkle effect
             createSparkle(eventX, eventY);
