@@ -20,13 +20,12 @@
             background-size: 400% 400%;
             animation: gradient 3s ease infinite;
             font-family: 'Comic Neue', 'Comic Sans MS', cursive;
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding: 20px;
-            padding-bottom: 100px;
+            justify-content: space-evenly;
+            padding: 10px;
         }
 
         @keyframes gradient {
@@ -43,7 +42,7 @@
         }
 
         h1 {
-            font-size: clamp(1.2rem, 4.5vw, 4rem);
+            font-size: clamp(1.2rem, 4.5vw, 3rem);
             color: #ff0000;
             text-shadow:
                 3px 3px 0 #ffff00,
@@ -51,7 +50,7 @@
                 3px -3px 0 #0000ff,
                 -3px 3px 0 #ff00ff;
             animation: blink 0.5s infinite, rainbow 2s linear infinite;
-            margin-bottom: 30px;
+            margin: 0;
             padding: 0 10px;
             white-space: nowrap;
             width: 100%;
@@ -75,13 +74,15 @@
 
         .couple-photo {
             width: 100%;
-            max-width: 400px;
-            border: 8px ridge #ff69b4;
+            max-width: 280px;
+            max-height: 50vh;
+            object-fit: contain;
+            border: 6px ridge #ff69b4;
             border-radius: 10px;
             box-shadow:
                 0 0 20px #ff00ff,
                 0 0 40px #ff69b4;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             animation: photo-glow 2s ease-in-out infinite alternate;
         }
 
@@ -92,20 +93,20 @@
 
         .buttons {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            min-height: 150px;
+            min-height: 80px;
             position: relative;
         }
 
         .btn {
-            padding: 15px 40px;
-            font-size: clamp(1.2rem, 4vw, 2rem);
+            padding: 12px 30px;
+            font-size: clamp(1rem, 3.5vw, 1.5rem);
             font-family: 'Comic Neue', 'Comic Sans MS', cursive;
             cursor: pointer;
-            border: 5px outset;
+            border: 4px outset;
             text-decoration: none;
             display: inline-block;
             -webkit-tap-highlight-color: transparent;
@@ -207,32 +208,26 @@
         /* Mobile styles */
         @media (max-width: 600px) {
             body {
-                padding: 15px;
-                padding-bottom: 80px;
+                padding: 10px;
             }
 
             .container {
                 padding: 5px;
             }
 
-            h1 {
-                margin-bottom: 20px;
-            }
-
             .couple-photo {
-                max-width: 90%;
-                margin-bottom: 20px;
+                max-width: 70%;
+                max-height: 45vh;
             }
 
             .buttons {
-                min-height: 120px;
-                gap: 20px;
+                min-height: 60px;
+                gap: 15px;
             }
 
             .btn {
-                padding: 12px 30px;
+                padding: 10px 25px;
             }
-
         }
     </style>
 </head>
